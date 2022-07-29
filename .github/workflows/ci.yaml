@@ -35,4 +35,18 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-         
+    - name: Setup gcloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_key: ${{ secrets.GCE_SA_KEY }} 
+        project_id: ${{ secrets.GCE_PROJECT }} 
+
+    - name: Configure docker for GCP
+      run: gcloud auth configure-docker
+
+    - name: Build docker image
+      run:  docker build -t gcr.io/${{ secrets.GCE_PROJECT }}/java-app:latest . 
+
+    - name: Push to Google Container Registry
+      run:  docker push gcr.io/${{ secrets.GCE_PROJECT }}/java-app:latest 
