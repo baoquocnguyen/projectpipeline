@@ -21,7 +21,7 @@ public class App {
         log.info("Java app started");
     }
 
-    //test
+    //test ci cd
 
     public String getStatus() {
         return "OK";
