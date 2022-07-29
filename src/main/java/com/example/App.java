@@ -21,6 +21,8 @@ public class App {
         log.info("Java app started");
     }
 
+    //test
+
     public String getStatus() {
         return "OK";
     }
